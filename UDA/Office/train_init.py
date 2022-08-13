@@ -184,8 +184,8 @@ if __name__ == "__main__":
     parser.add_argument('--stages', type=int, default=6, help="training stages")
     parser.add_argument('--radius', type=float, default=10.0, help="radius")
     args = parser.parse_args()
-    s_dset_path = '../data/Office/' + args.source + '_list.txt' #'../../data/office/' + args.source + '_list.txt'
-    t_dset_path = '../data/Office/' + args.target + '_list.txt' #'../../data/office/' + args.target + '_list.txt'
+    s_dset_path = '../../data/Office/' + args.source + '_list.txt' #'../../data/office/' + args.source + '_list.txt'
+    t_dset_path = '../../data/Office/' + args.target + '_list.txt' #'../../data/office/' + args.target + '_list.txt'
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_id
     config = {}
