@@ -51,7 +51,7 @@ class ImageList(Dataset):
             return img, target
         else:
             path, label, weight, sigma = self.imgs[index]
-            path = "/data/guxiang/dataset/" + path
+            path = path
             img = self.loader(path)
             if self.transform is not None:
                 img = self.transform(img)

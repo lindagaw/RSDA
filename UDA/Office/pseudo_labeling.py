@@ -67,7 +67,7 @@ def make_list(id,pseu_label,weights,sigmas,list_path,save_path):
         fw.write('\n')
 
 def make_new_list(source,target,iter_times=0):
-    list_path = '/data/guxiang/dataset/office/' + target + '_list.txt'
+    list_path = '../../data/Office/' + target + '_list.txt'
     save_path = 'new_list/' + source + '_' + target + '_list.txt'
     if not os.path.exists('new_list'):
         os.mkdir('new_list')
@@ -96,8 +96,3 @@ def make_new_list(source,target,iter_times=0):
 
     weighted_id, weighted_pseu_label, weights, sigmas= sample_weighting(features, labels, pseu_labels)
     make_list(weighted_id,weighted_pseu_label,weights,sigmas, list_path, save_path)
-
-
-
-
-
