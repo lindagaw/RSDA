@@ -42,7 +42,7 @@ class ImageList(Dataset):
     def __getitem__(self, index):
         if not self.second:
             path, target = self.imgs[index]
-            path = "/data/guxiang/dataset/" + path
+            path = path
             img = self.loader(path)
             if self.transform is not None:
                 img = self.transform(img)
