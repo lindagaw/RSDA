@@ -190,7 +190,7 @@ def train(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Code for RSDA-MSTN')
-    parser.add_argument('--gpu_id', type=str, nargs='?', default='7', help="device id to run")
+    parser.add_argument('--gpu_id', type=str, nargs='?', default='0', help="device id to run")
     parser.add_argument('--source', type=str, default='amazon',choices=["amazon", "dslr","webcam"])
     parser.add_argument('--target', type=str, default='webcam', choices=["amazon", "dslr", "webcam"])
     parser.add_argument('--test_interval', type=int, default=50, help="interval of two continuous test phase")
