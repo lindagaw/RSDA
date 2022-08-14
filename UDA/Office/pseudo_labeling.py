@@ -75,11 +75,12 @@ def make_new_list(source,target,iter_times=0):
     dsets = ImageList(open(list_path).readlines(), transform=transform)
     dloader = DataLoader(dsets, batch_size=36, shuffle=False, num_workers=4, drop_last=False)
 
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+
     if iter_times==0:
-        print(torch.cuda.is_available())
-        model = torch.load('save/init_model/' + source + '_' + target + '.pkl')
+        model = torch.load('save/init_model/' + source + '_' + target + '.pkl', map_location=device)
     if iter_times>0:
-        model = torch.load('save/rsda_model/' + source + '_' + target + '.pkl')
+        model = torch.load('save/rsda_model/' + source + '_' + target + '.pkl', map_location=device)
 
     features = torch.Tensor([])
     labels = torch.LongTensor([])
