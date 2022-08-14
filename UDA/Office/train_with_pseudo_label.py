@@ -16,7 +16,7 @@ import random
 import torch.optim as optim
 import pseudo_labeling
 
-
+import pretty_errors
 
 def mae_loss(output,label,weight,q=1.0):
     one_hot_label=torch.zeros(output.size()).scatter_(1,label.cpu().view(-1,1),1).cuda()
