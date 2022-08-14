@@ -76,6 +76,7 @@ def make_new_list(source,target,iter_times=0):
     dloader = DataLoader(dsets, batch_size=36, shuffle=False, num_workers=4, drop_last=False)
 
     if iter_times==0:
+        print(torch.cuda.is_available())
         model = torch.load('save/init_model/' + source + '_' + target + '.pkl')
     if iter_times>0:
         model = torch.load('save/rsda_model/' + source + '_' + target + '.pkl')
