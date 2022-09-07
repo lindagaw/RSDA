@@ -15,6 +15,8 @@ from pre_process import ImageList
 import copy
 import random
 
+import pretty_errors
+
 # https://github.com/XJTU-XGU/RSDA
 
 def image_classification_test(loader, model):
