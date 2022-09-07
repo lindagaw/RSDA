@@ -4,6 +4,9 @@ import torch.nn as nn
 from torch.nn import Parameter
 from torchvision import models
 import torch.nn.functional as F
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 def calc_coeff(iter_num, high=1.0, low=0.0, alpha=10.0, max_iter=10000.0):
     return np.float(2.0 * (high - low) / (1.0 + np.exp(-alpha*iter_num / max_iter)) - (high - low) + low)
@@ -181,5 +184,3 @@ class SP_layer(nn.Module):
 
     def srelu(self,x, r=1.0):
         return r * F.normalize(F.relu(x), dim=1)
-
-
