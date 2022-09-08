@@ -40,8 +40,10 @@ def image_classification_test(loader, model):
                 all_label = torch.cat((all_label, labels.float()), 0)
                 all_input = torch.cat((all_input, inputs.float()), 0)
 
-    print(all_input.shape)
-    print(all_output.shape)
+    #print(all_input.shape)
+    #print(all_output.shape)
+    #print(all_label.shape)
+
     _, predict = torch.max(all_output, 1)
     accuracy = torch.sum(torch.squeeze(predict).float() == all_label).item() / float(all_label.size()[0])
     return accuracy
@@ -191,6 +193,9 @@ if __name__ == "__main__":
     parser.add_argument('--stages', type=int, default=6, help="training stages")
     parser.add_argument('--radius', type=float, default=10.0, help="radius")
     args = parser.parse_args()
+
+    print(args)
+
     s_dset_path = '../../data/Office/' + args.source + '_list.txt' #'../../data/office/' + args.source + '_list.txt'
     t_dset_path = '../../data/Office/' + args.target + '_list.txt' #'../../data/office/' + args.target + '_list.txt'
 
