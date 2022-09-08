@@ -21,7 +21,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 def construct_pseudo_dataset(source, target, all_input, all_output, all_label):
-    path = os.path.join('..//..//..//datasets//office-31', source+'_to_'+target)
+    path = os.path.join('..//..//..//datasets//office-31//pseudo_labeling', source+'_to_'+target)
     try:
         os.makedirs(path)
     except Exception as e:
@@ -54,7 +54,7 @@ def image_classification_test(source, target, loader, model):
     #print(all_input.shape)
     #print(all_output.shape)
     #print(all_label.shape)
-    construct_pseudo_dataset(source, target, all_input, all_output, all_label)
+    #construct_pseudo_dataset(source, target, all_input, all_output, all_label)
 
     _, predict = torch.max(all_output, 1)
     accuracy = torch.sum(torch.squeeze(predict).float() == all_label).item() / float(all_label.size()[0])
@@ -196,7 +196,7 @@ def train(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Code for RSDA-MSTN')
-    parser.add_argument('--gpu_id', type=str, nargs='?', default='1', help="device id to run")
+    parser.add_argument('--gpu_id', type=str, nargs='?', default='0', help="device id to run")
     parser.add_argument('--source', type=str, default='amazon',choices=["amazon", "dslr","webcam"])
     parser.add_argument('--target', type=str, default='dslr', choices=["amazon", "dslr", "webcam"])
     parser.add_argument('--test_interval', type=int, default=50, help="interval of two continuous test phase")

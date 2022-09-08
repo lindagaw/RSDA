@@ -26,7 +26,18 @@ def mae_loss(output,label,weight,q=1.0):
     # print(q,mae)
     return torch.sum(weight*mae)/(torch.sum(weight)+1e-10)
 
-def image_classification_test(loader, model):
+def construct_pseudo_dataset(source, target, all_input, all_output, all_label):
+    path = os.path.join('..//..//..//datasets//office-31//pseudo_labeling', source+'_to_'+target)
+    try:
+        os.makedirs(path)
+    except Exception as e:
+        print(e)
+    torch.save(all_input, os.path.join(path, 'all_input.pt'))
+    torch.save(all_output, os.path.join(path, 'output_input.pt'))
+    torch.save(all_label, os.path.join(path, 'all_label.pt'))
+
+
+def image_classification_test(source, target, loader, model):
     start_test = True
     with torch.no_grad():
         iter_test = iter(loader["test"])
@@ -40,12 +51,19 @@ def image_classification_test(loader, model):
             if start_test:
                 all_output = outputs.float().cpu()
                 all_label = labels.float()
+                all_input = inputs.float()
                 start_test = False
             else:
                 all_output = torch.cat((all_output, outputs.float().cpu()), 0)
                 all_label = torch.cat((all_label, labels.float()), 0)
+                all_input = torch.cat((all_input, inputs.float()), 0)
+
+    #print(all_input.shape)
+    #print(all_output.shape)
+    #print(all_label.shape)
+    construct_pseudo_dataset(source, target, all_input, all_output, all_label)
     _, predict = torch.max(all_output, 1)
-    
+
     accuracy = torch.sum(torch.squeeze(predict).float() == all_label).item() / float(all_label.size()[0])
     return accuracy
 
@@ -123,7 +141,7 @@ def train(config):
     for i in range(config["iterations"]):
         if i % config[ "test_interval"] == config["test_interval"] - 1:
             base_network.train(False)
-            temp_acc = image_classification_test(dset_loaders,base_network)
+            temp_acc = image_classification_test(source, target, dset_loaders,base_network)
             temp_model = base_network
             if temp_acc > best_acc:
                 best_acc = temp_acc
