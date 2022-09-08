@@ -21,7 +21,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 def construct_pseudo_dataset(source, target, all_input, all_output, all_label):
-    path = os.path.join('..//..//..//', source+'_to_'+target)
+    path = os.path.join('..//..//..//datasets//office-31', source+'_to_'+target)
     try:
         os.makedirs(path)
     except Exception as e:
