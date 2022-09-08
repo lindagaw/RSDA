@@ -20,9 +20,17 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-# https://github.com/XJTU-XGU/RSDA
+def construct_pseudo_dataset(source, target, all_input, all_output, all_label):
+    path = os.path.join('..//..//..//', source+'_to_'+target)
+    try:
+        os.makedirs(path)
+    except Exception as e:
+        print(e)
+    torch.save(all_input, os.path.join(path, 'all_input.pt'))
+    torch.save(all_output, os.path.join(path, 'output_input.pt'))
+    torch.save(all_label, os.path.join(path, 'all_label.pt'))
 
-def image_classification_test(loader, model):
+def image_classification_test(source, target, loader, model):
     start_test = True
     with torch.no_grad():
         iter_test = iter(loader["test"])
@@ -46,6 +54,7 @@ def image_classification_test(loader, model):
     #print(all_input.shape)
     #print(all_output.shape)
     #print(all_label.shape)
+    construct_pseudo_dataset(source, target, all_input, all_output, all_label)
 
     _, predict = torch.max(all_output, 1)
     accuracy = torch.sum(torch.squeeze(predict).float() == all_label).item() / float(all_label.size()[0])
@@ -126,7 +135,7 @@ def train(config):
     for i in range(config["iterations"]):
         if i % config["test_interval"] == config["test_interval"] - 1:
             base_network.train(False)
-            temp_acc = image_classification_test(dset_loaders, base_network)
+            temp_acc = image_classification_test(args.source, args.target, dset_loaders, base_network)
             temp_model = base_network
             if temp_acc > best_acc:
                 best_acc = temp_acc
@@ -196,8 +205,6 @@ if __name__ == "__main__":
     parser.add_argument('--stages', type=int, default=6, help="training stages")
     parser.add_argument('--radius', type=float, default=10.0, help="radius")
     args = parser.parse_args()
-
-    print(args.source)
 
     s_dset_path = '../../data/Office/' + args.source + '_list.txt' #'../../data/office/' + args.source + '_list.txt'
     t_dset_path = '../../data/Office/' + args.target + '_list.txt' #'../../data/office/' + args.target + '_list.txt'
