@@ -16,6 +16,9 @@ import copy
 import random
 
 import pretty_errors
+import warnings
+
+warnings.filterwarnings("ignore")
 
 # https://github.com/XJTU-XGU/RSDA
 
@@ -194,7 +197,7 @@ if __name__ == "__main__":
     parser.add_argument('--radius', type=float, default=10.0, help="radius")
     args = parser.parse_args()
 
-    print(args)
+    print(args[4])
 
     s_dset_path = '../../data/Office/' + args.source + '_list.txt' #'../../data/office/' + args.source + '_list.txt'
     t_dset_path = '../../data/Office/' + args.target + '_list.txt' #'../../data/office/' + args.target + '_list.txt'
