@@ -194,7 +194,7 @@ def train(config):
         softmax_tar_out = torch.nn.Softmax(dim=1)(fc(features_target))
         H = torch.mean(loss.Entropy(softmax_tar_out))
 
-        lam=network.calc_coeff(i,max_iter=2000)
+        lam=network.calc_coeff(i,max_iter=1000) #2000
         total_loss = classifier_loss+classifier_loss_target+lam*loss_sm+transfer_loss+config["tradeoff_ent"]*lam*H
 
         optimizer_classfier.zero_grad()

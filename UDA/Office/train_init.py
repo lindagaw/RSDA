@@ -233,13 +233,13 @@ if __name__ == "__main__":
                       "test":{"list_path":t_dset_path, "batch_size":72}}
     config["out_file"].flush()
     if config["source"] == "amazon" and config["target"] == "dslr":
-        config["iterations"] = 2000
+        config["iterations"] = 1000 #2000
         seed = 0
     elif config["source"] == "amazon" and config["target"] == "webcam":
-        config["iterations"] = 2000
+        config["iterations"] = 1000 #2000
         seed = 0
     else:
-        config["iterations"] = 4000
+        config["iterations"] = 1000 #4000
         seed = 1
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
