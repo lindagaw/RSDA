@@ -17,6 +17,9 @@ import torch.optim as optim
 import pseudo_labeling
 
 import pretty_errors
+import warnings
+
+warnings.filterwarnings("ignore")
 
 def mae_loss(output,label,weight,q=1.0):
     one_hot_label=torch.zeros(output.size()).scatter_(1,label.cpu().view(-1,1),1).cuda()
@@ -211,7 +214,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Code for RSDA-MSTN')
     parser.add_argument('--gpu_id', type=str, nargs='?', default='0', help="device id to run")
     parser.add_argument('--source', type=str, default='amazon',choices=["amazon", "dslr","webcam"])
-    parser.add_argument('--target', type=str, default='webcam', choices=["amazon", "dslr", "webcam"])
+    parser.add_argument('--target', type=str, default='dslr', choices=["amazon", "dslr", "webcam"])
     parser.add_argument('--test_interval', type=int, default=50, help="interval of two continuous test phase")
     parser.add_argument('--snapshot_interval', type=int, default=1000, help="interval of two continuous output model")
     parser.add_argument('--lr', type=float, default=0.001, help="learning rate")
